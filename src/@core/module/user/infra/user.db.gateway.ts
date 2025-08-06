@@ -14,12 +14,16 @@ export class UserDbGateway implements IUserGateway {
     });
   }
 
-  async create(params: TCreateUser): Promise<TUser> {
+  async create(params: TCreateUser): Promise<Omit<TUser, 'password'>> {
     return await this.prisma.user.create({
       data: {
         email: params.email,
         password: params.password,
         name: params.name,
+        passkey: params.passkey,
+      },
+      omit: {
+        password: true,
       },
     });
   }

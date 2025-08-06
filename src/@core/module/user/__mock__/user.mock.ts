@@ -8,4 +8,5 @@ export const TUserMock: TUser = {
   password: faker.internet.password(),
   createdAt: faker.date.past(),
   updatedAt: faker.date.recent(),
+  passkey: faker.internet.password(),
 };

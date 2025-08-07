@@ -18,7 +18,7 @@ const container = new Container();
 container.bind(registry.JwtService).toConstantValue(
   new JwtService({
     secret: constants.jwtSecret,
-    signOptions: { expiresIn: '60s' },
+    signOptions: { expiresIn: '1d' },
   }),
 );
 

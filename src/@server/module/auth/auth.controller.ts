@@ -10,11 +10,12 @@ import {
 import { LocalAuthGuard } from './guard/local-auth.guard';
 import { auth } from '@core/module/auth/infra/container.registry';
 import type { Request } from 'express';
-import type { TCreateUser, TUser } from '@core/module/user/domain/user.entity';
+import type { TUser } from '@core/module/user/domain/user.entity';
 import { JwtAuthGuard } from './guard/jwt-auth.guard';
 import { user } from '@core/module/user/infra/user.container.registry';
 import type { TLoginResponse } from '@core/module/auth/domain/auth.entity';
 import { IsPublic } from '@core/decorators/public.decorator';
+import { CreateUserDto } from '@core/module/user/domain/dto/create.dto';
 
 @Controller('auth')
 export class AuthController {
@@ -38,7 +39,7 @@ export class AuthController {
 
   @IsPublic()
   @Post('signup')
-  async signup(@Body() body: TCreateUser) {
+  async signup(@Body() body: CreateUserDto) {
     return await user.create.execute(body);
   }
 }

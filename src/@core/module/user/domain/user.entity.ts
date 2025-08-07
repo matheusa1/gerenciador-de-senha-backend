@@ -7,5 +7,3 @@ export type TUser = {
   createdAt: Date;
   updatedAt: Date;
 };
-
-export type TCreateUser = Omit<TUser, 'id' | 'createdAt' | 'updatedAt'>;

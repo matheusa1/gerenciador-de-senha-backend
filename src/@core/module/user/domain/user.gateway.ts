@@ -1,7 +1,8 @@
-import { TCreateUser, TUser } from './user.entity';
+import { TUser } from './user.entity';
+import { CreateUserDto } from '@core/module/user/domain/dto/create.dto';
 
 export interface IUserGateway {
   getByEmail(email: string): Promise<TUser | null>;
 
-  create(params: TCreateUser): Promise<Omit<TUser, 'password'>>;
+  create(params: CreateUserDto): Promise<Omit<TUser, 'password'>>;
 }

@@ -1,7 +1,8 @@
 import { IUserGateway } from '../domain/user.gateway';
-import { TCreateUser, TUser } from '@core/module/user/domain/user.entity';
+import { TUser } from '@core/module/user/domain/user.entity';
 import { PrismaClient } from '@prisma/client';
 import 'reflect-metadata';
+import { CreateUserDto } from '@core/module/user/domain/dto/create.dto';
 
 export class UserDbGateway implements IUserGateway {
   constructor(private readonly prisma: PrismaClient) {}
@@ -14,7 +15,7 @@ export class UserDbGateway implements IUserGateway {
     });
   }
 
-  async create(params: TCreateUser): Promise<Omit<TUser, 'password'>> {
+  async create(params: CreateUserDto): Promise<Omit<TUser, 'password'>> {
     return await this.prisma.user.create({
       data: {
         email: params.email,

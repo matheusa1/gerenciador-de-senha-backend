@@ -37,7 +37,7 @@ export class CredentialDbGateway implements ICredentialGateway {
   async paginate(
     params: PaginateCredentialDto,
   ): Promise<TResultPaginate<TCredential>> {
-    const { page, limit, userId } = params;
+    const { page, limit, userId, categoryId } = params;
 
     const data = await this.prisma.credential.findMany({
       skip: (page - 1) * limit,
@@ -45,6 +45,7 @@ export class CredentialDbGateway implements ICredentialGateway {
       orderBy: { createdAt: 'desc' },
       where: {
         userId,
+        categoryId,
       },
     });
 

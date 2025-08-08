@@ -1,4 +1,10 @@
-import { IsNotEmpty, IsOptional, IsString, IsUrl } from 'class-validator';
+import {
+  IsNotEmpty,
+  IsOptional,
+  IsString,
+  IsUrl,
+  IsUUID,
+} from 'class-validator';
 
 export class CreateCredentialDto {
   @IsString({ message: 'A senha deve ser uma string.' })
@@ -16,4 +22,8 @@ export class CreateCredentialDto {
   @IsString({ message: 'As notas devem ser uma string.' })
   @IsOptional()
   notes?: string;
+
+  @IsUUID(7, { message: 'O ID da categoria deve ser um UUID válido.' })
+  @IsOptional()
+  categoryId: string;
 }

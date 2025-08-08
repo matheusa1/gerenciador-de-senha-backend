@@ -96,3 +96,24 @@ Nest is an MIT-licensed open source project. It can grow thanks to the sponsors 
 ## License
 
 Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+
+
+## Docker
+
+This project includes a Dockerfile (multi-stage) and a docker-compose.yml with profiles for development and production.
+
+Quick start:
+
+- Development (hot reload):
+  - Build and run: `docker compose --profile dev up --build`
+  - App URL: http://localhost:3000
+  - The sqlite database is stored in a volume mounted at /app/data (volume name: db_data). Source code is bind-mounted for live reload.
+
+- Production:
+  - Build and run: `docker compose --profile prod up --build -d`
+  - App URL: http://localhost:3000
+  - The sqlite database is stored in the same named volume (db_data). The image runs compiled code from dist.
+
+Notes:
+- DATABASE_URL is configured to use sqlite at /app/data/*.db. Prisma migrations are applied automatically on startup (`prisma migrate deploy`).
+- You can customize the port by changing the PORT env var in docker-compose.yml.

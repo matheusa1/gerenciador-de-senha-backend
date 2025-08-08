@@ -47,6 +47,9 @@ export class CredentialDbGateway implements ICredentialGateway {
         userId,
         categoryId,
       },
+      include: {
+        category: true,
+      },
     });
 
     const total = await this.prisma.credential.count({

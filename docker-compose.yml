@@ -1,0 +1,48 @@
+
+
+# Docker Compose with profiles for dev and prod
+services:
+  app:
+    build:
+      context: .
+      target: development
+    image: password-manager-backend:dev
+    container_name: password-manager-backend-dev
+    command: sh -c "pnpm prisma migrate deploy && pnpm run start:dev"
+    environment:
+      - NODE_ENV=development
+      - PORT=3000
+      # Use a separate data directory so we don't shadow prisma migrations
+      - DATABASE_URL=file:/app/data/dev.db
+      - JWT_SECRET=_4SM4X2vdyNRc6m7_4q2SA
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./:/app
+      # Avoid overwriting node_modules in container when bind-mounting project
+      - /app/node_modules
+      # Persist sqlite database file in a dedicated volume
+      - db_data:/app/data
+    profiles: ["dev"]
+
+  app-prod:
+    build:
+      context: .
+      target: production
+    image: password-manager-backend:prod
+    container_name: password-manager-backend-prod
+    command: sh -c "node -v && pnpm prisma migrate deploy && node dist/main.js"
+    environment:
+      - NODE_ENV=production
+      - PORT=3000
+      - DATABASE_URL=file:/app/data/prod.db
+      - JWT_SECRET=_4SM4X2vdyNRc6m7_4q2SA
+    ports:
+      - "3000:3000"
+    volumes:
+      - db_data:/app/data
+    profiles: ["prod"]
+
+volumes:
+  db_data:
+    driver: local

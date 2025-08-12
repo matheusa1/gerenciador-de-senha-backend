@@ -12,8 +12,10 @@ export class CreateUserDto {
   @IsString({ message: 'Senha precisa ser um texto' })
   @IsNotEmpty({ message: 'Senha não pode ser vazia' })
   password: string;
+}
 
-  @IsString({ message: 'Passkey precisa ser um texto' })
-  @IsNotEmpty({ message: 'Passkey não pode ser vazia' })
+export class CreateUserPasskeyDto extends CreateUserDto {
+  @IsString({ message: 'A palavra chave precisa ser um texto' })
+  @IsNotEmpty({ message: 'A palavra chave não pode ser vazia' })
   passkey: string;
 }

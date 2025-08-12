@@ -21,10 +21,10 @@ RUN mkdir -p /app/data
 COPY tsconfig*.json nest-cli.json ./
 COPY src ./src
 # Expose API port
-EXPOSE 3000
+EXPOSE 3333
 # Default envs for dev (can be overridden by compose)
 ENV NODE_ENV=development \
-    PORT=3000
+    PORT=3333
 # Start command can be overridden by compose to run migrations first
 CMD ["pnpm", "run", "start:dev"]
 
@@ -41,7 +41,7 @@ RUN pnpm run build
 # 4) Production runtime
 FROM base AS production
 ENV NODE_ENV=production \
-    PORT=3000
+    PORT=3333
 # Only install prod deps
 COPY package.json pnpm-lock.yaml* ./
 RUN pnpm install --frozen-lockfile --prod
@@ -53,5 +53,5 @@ RUN pnpm prisma generate
 # Data directory for sqlite database file that will be stored in a volume
 RUN mkdir -p /app/data
 # Expose API port
-EXPOSE 3000
+EXPOSE 3333
 CMD ["node", "dist/main.js"]

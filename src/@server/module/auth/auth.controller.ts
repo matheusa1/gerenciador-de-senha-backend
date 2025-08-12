@@ -34,7 +34,7 @@ export class AuthController {
   @UseGuards(JwtAuthGuard)
   @Get('profile')
   getProfile(@NestRequest() req: Request) {
-    return req.user;
+    return { ...req.user, password: undefined };
   }
 
   @IsPublic()

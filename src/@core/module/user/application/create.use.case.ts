@@ -17,11 +17,14 @@ export class CreateUseCase {
       throw new ConflictException('E-mail já utilizado');
     }
 
-    const hashedPassword = await bcrypt.hash(params.password, 10);
+    const userPasskey = await bcrypt.genSalt(10);
+
+    const hashedPassword = await bcrypt.hash(params.password, userPasskey);
 
     const userWithPassword = {
       ...params,
       password: hashedPassword,
+      passkey: userPasskey,
     };
 
     return this.gateway.create(userWithPassword);

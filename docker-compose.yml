@@ -11,12 +11,12 @@ services:
     command: sh -c "pnpm prisma migrate deploy && pnpm run start:dev"
     environment:
       - NODE_ENV=development
-      - PORT=3000
+      - PORT=3333
       # Use a separate data directory so we don't shadow prisma migrations
       - DATABASE_URL=file:/app/data/dev.db
       - JWT_SECRET=_4SM4X2vdyNRc6m7_4q2SA
     ports:
-      - "3000:3000"
+      - "3333:3333"
     volumes:
       - ./:/app
       # Avoid overwriting node_modules in container when bind-mounting project
@@ -34,11 +34,11 @@ services:
     command: sh -c "node -v && pnpm prisma migrate deploy && node dist/main.js"
     environment:
       - NODE_ENV=production
-      - PORT=3000
+      - PORT=3333
       - DATABASE_URL=file:/app/data/prod.db
       - JWT_SECRET=_4SM4X2vdyNRc6m7_4q2SA
     ports:
-      - "3000:3000"
+      - "3333:3333"
     volumes:
       - db_data:/app/data
     profiles: ["prod"]

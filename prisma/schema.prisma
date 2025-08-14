@@ -25,6 +25,7 @@ model user {
 model credential {
   id        String   @id @default(uuid(7))
   userId    String
+  name      String
   password  String
   username  String
   url       String

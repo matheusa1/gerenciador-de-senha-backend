@@ -7,6 +7,10 @@ import {
 } from 'class-validator';
 
 export class CreateCredentialDto {
+  @IsString({ message: 'O nome deve ser uma string.' })
+  @IsNotEmpty({ message: 'O nome é obrigatório' })
+  name: string;
+
   @IsString({ message: 'A senha deve ser uma string.' })
   @IsNotEmpty({ message: 'A senha é obrigatória.' })
   password: string;

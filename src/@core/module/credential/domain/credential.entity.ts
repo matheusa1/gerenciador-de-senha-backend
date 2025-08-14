@@ -1,6 +1,7 @@
 export type TCredential = {
   id: string;
   userId: string;
+  name: string;
   password: string;
   username: string;
   url: string;

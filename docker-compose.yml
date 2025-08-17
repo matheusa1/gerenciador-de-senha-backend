@@ -9,3 +9,7 @@ services:
       - DATABASE_URL=file:./prisma/dev.db
       - JWT_SECRET=_4SM4X2vdyNRc6m7_4q2SA
     command: sh -c "node -v && pnpm prisma migrate deploy && node dist/main.js"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3333/health"]
+      interval: 10s
+      timeout: 10s

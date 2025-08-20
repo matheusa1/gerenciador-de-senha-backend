@@ -1,5 +1,4 @@
 import { IUserGateway } from '@core/module/user/domain/user.gateway';
-import { TUser } from '@core/module/user/domain/user.entity';
 
 import * as bcrypt from 'bcrypt';
 import { CreateUserDto } from '@core/module/user/domain/dto/create.dto';
@@ -8,7 +7,7 @@ import { ConflictException } from '@nestjs/common';
 export class CreateUseCase {
   constructor(private readonly gateway: IUserGateway) {}
 
-  async execute(params: CreateUserDto): Promise<Omit<TUser, 'password'>> {
+  async execute(params: CreateUserDto): Promise<void> {
     const existingUser = await this.gateway
       .getByEmail(params.email)
       .catch(() => null);

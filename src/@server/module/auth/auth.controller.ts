@@ -2,6 +2,8 @@ import {
   Body,
   Controller,
   Get,
+  HttpCode,
+  HttpStatus,
   InternalServerErrorException,
   Post,
   Request as NestRequest,
@@ -21,7 +23,7 @@ import { CreateUserDto } from '@core/module/user/domain/dto/create.dto';
 export class AuthController {
   @IsPublic()
   @UseGuards(LocalAuthGuard)
-  @Post('login')
+  @Post('sign-in')
   login(@NestRequest() req: Request): TLoginResponse {
     if (!req.user) {
       throw new InternalServerErrorException(
@@ -38,8 +40,9 @@ export class AuthController {
   }
 
   @IsPublic()
-  @Post('signup')
-  async signup(@Body() body: CreateUserDto) {
+  @Post('sign-up')
+  @HttpCode(HttpStatus.CREATED)
+  async signup(@Body() body: CreateUserDto): Promise<void> {
     return await user.create.execute(body);
   }
 }

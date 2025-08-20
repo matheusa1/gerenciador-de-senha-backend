@@ -15,8 +15,8 @@ export class UserDbGateway implements IUserGateway {
     });
   }
 
-  async create(params: CreateUserPasskeyDto): Promise<Omit<TUser, 'password'>> {
-    return await this.prisma.user.create({
+  async create(params: CreateUserPasskeyDto): Promise<void> {
+    await this.prisma.user.create({
       data: {
         email: params.email,
         password: params.password,
